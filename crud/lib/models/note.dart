@@ -1,12 +1,14 @@
 class Note {
   
-  final String title;
-  final String content;
+    late String title;
+    late String content;
 
-  Note({  required this.title, required this.content}) {
-    // TODO: implement 
+  Note({  required this.title, required this.content}); 
+
+  Note.Empty();
     
-  }
+    
+  
 
   Map<String, dynamic> toMap(){
    return {
@@ -14,3 +16,9 @@ class Note {
    };
   }
 }
+
+
+  
+   
+
+ 

@@ -13,18 +13,7 @@ class ListPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     
-    return Scaffold(
-       floatingActionButton: FloatingActionButton(child: Icon(Icons.add),onPressed: () {
-         Navigator.pushNamed(context, SavePage.ROUTE,argurments:);
-         
-       },),
-
-        
-
-      appBar: AppBar(title: Text("Listado"),),
-      body: Container(
-        child: _MyList(),),
-    );
+    return _MyList();
   }
 }
 
@@ -48,12 +37,32 @@ class _MyListState extends State<_MyList> {
   @override
   Widget build(BuildContext context) {
 
+    return Scaffold(
+       floatingActionButton: FloatingActionButton(child: const Icon(Icons.add),onPressed: () {
+         Navigator.pushNamed(context, SavePage.ROUTE, arguments: Note.Empty()).then((value) => setState((() {
 
+            _loadData();
 
-    return ListView.builder(
+           })));
+         
+       },
+       ),
+
+      appBar: AppBar(
+        title: const Text(
+          "Listado"
+          ),
+        ),
+
+      body:  ListView.builder(
       itemCount: notes.length,
       itemBuilder: (_,i) => _createItem(i),
+     
+    )
     );
+    
+   
+   
 
   }
 
@@ -70,11 +79,63 @@ _createItem(int i) {
   return Dismissible(
     key : Key(i.toString()),
     direction: DismissDirection.startToEnd,
+    background: Container(
+      color: const Color.fromARGB(255, 112, 86, 84),
+      padding: const EdgeInsets.only(left: 5),
+      child: const Align(
+        alignment: Alignment.centerLeft,
+        child: Icon(Icons.delete,color: Color.fromARGB(255, 159, 190, 234)),
+        ) ,
+    ),
     onDismissed: (direction){
       print(direction);
+      Operation.delete(notes[i]);
+      
     },
     child: ListTile(
+      
       title: Text(notes[i].title),
+      trailing: MaterialButton(
+        onPressed: () {
+          Navigator.pushNamed(context, SavePage.ROUTE,arguments: notes[i]).then((value) => setState((() {
+            
+         
+            _loadData();
+           })));
+        },
+        child: const Icon(Icons.edit)) ,
+      
+      
+    ),
+  );
+ }
+
+ _createItemd(int i) {
+  return Dismissible(
+    key : Key(i.toString()),
+    direction: DismissDirection.startToEnd,
+    background: Container(
+      color: const Color.fromARGB(255, 112, 86, 84),
+      padding: const EdgeInsets.only(left: 5),
+      child: const Align(
+        alignment: Alignment.centerLeft,
+        child: Icon(Icons.delete,color: Color.fromARGB(255, 159, 190, 234)),
+        ) ,
+    ),
+    onDismissed: (direction){
+      print(direction);
+      Operation.delete(notes[i]);
+      
+    },
+    child: ListTile(
+      title: Text(notes[i].content),
+       trailing: MaterialButton(
+        onPressed: () {
+          Navigator.pushNamed(context, SavePage.ROUTE,arguments: notes[i]);
+        },
+        child: const Icon(Icons.edit)) ,
+      
+      
     ),
   );
  }

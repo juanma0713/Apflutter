@@ -5,39 +5,45 @@ import 'package:flutter/material.dart';
 class SavePage extends StatelessWidget {
  
  static const String ROUTE = "/save";
+
+    final _formKey = GlobalKey<FormState>(); 
+    final titleController = TextEditingController();
+    final contentController = TextEditingController();
+
+    
  
   @override
   Widget build(BuildContext context) {
+
+ Object? note = ModalRoute.of(context)?.settings.arguments;
+
+   _init;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Guardar"),
+        title: const Text("Guardar"),
         ),
         body: Container(
-          child: _FormSave(),
+          child: _buildForm(note),
           ),
 
     );
   }
-}
 
+  
 
+  _init(Note note){
 
-class _FormSave extends StatelessWidget {
-    
-    final _formKey = GlobalKey<FormState>();
-    
-    final titleController = TextEditingController();
-    final contentController = TextEditingController();
+    titleController.text = note.title;
+    contentController.text = note.content;
 
+  }
 
-  @override
-  Widget build(BuildContext context) {
-
-    
-    return Container(
+  Widget _buildForm(note){
+     return Container(
 
       
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Form(
         key: _formKey,
         child: Column(children: <Widget>[
@@ -50,13 +56,13 @@ class _FormSave extends StatelessWidget {
               return null;
             },
           
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: "Titulo",
             border:  OutlineInputBorder (),//(borderRadius: BorderRadius.all(Radius.circular(20)))
           ),
         ),
        
-       SizedBox(height:15,
+       const SizedBox(height:15,
        ),
        
         TextFormField(
@@ -69,17 +75,37 @@ class _FormSave extends StatelessWidget {
               }
               return null;
             },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             labelText: "Contenido",
             border:  OutlineInputBorder ()//(borderRadius: BorderRadius.all(Radius.circular(20)))
           ),
         ),
-       ElevatedButton(child: Text("Guardar"),
+       ElevatedButton(child: const Text("Guardar"),
        onPressed: () {
           if(_formKey.currentState!.validate()){
-            print("titulo: " + titleController.text+",  contenido: "+contentController.text);
+            
+            if(note.title != null){
 
-            Operation.insert(Note(title: titleController.text, content: contentController.text));
+              //Actualizacion
+              note.title = titleController.text;
+              note.content = contentController.text;
+              Operation.update(note);
+             
+ 
+
+            }else{
+              //Insercion
+
+              Operation.insert(
+              Note(title: titleController.text, 
+              content: contentController.text));
+
+
+            }
+
+            Operation.insert(
+              Note(title: titleController.text, 
+              content: contentController.text));
 
 
           }
@@ -90,6 +116,5 @@ class _FormSave extends StatelessWidget {
      ),
      
     );
-    
   }
 }

@@ -33,7 +33,13 @@ class Operation {
   static Future<int> delete(Note note) async{
    Database database = await _openDB();
 
-  return database.delete("notes", where: 'id = ?' , whereArgs: [note.content]);
+  return database.delete("notes", where: 'title = ?' , whereArgs: [note.title]);
+  }
+
+  static Future<int> update(Note note) async{
+   Database database = await _openDB();
+
+  return database.update("notes",note.toMap(), where: 'title = ?' , whereArgs: [note.title]);
   }
 
 
@@ -55,6 +61,7 @@ class Operation {
       
       
       
-       ));
+       ),
+       );
   }
 }
