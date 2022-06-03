@@ -24,7 +24,7 @@ class SavePage extends StatelessWidget {
         title: const Text("Guardar"),
         ),
         body: Container(
-          child: _buildForm(note),
+          child: _buildForm(Note note),
           ),
 
     );
@@ -39,7 +39,7 @@ class SavePage extends StatelessWidget {
 
   }
 
-  Widget _buildForm(note){
+  Widget _buildForm( Note note ){
      return Container(
 
       
@@ -84,8 +84,8 @@ class SavePage extends StatelessWidget {
        onPressed: () {
           if(_formKey.currentState!.validate()){
             
-            if(note.title != null){
-
+            if(note.title == null){
+/*
               //Actualizacion
               note.title = titleController.text;
               note.content = contentController.text;
@@ -93,7 +93,7 @@ class SavePage extends StatelessWidget {
              
  
 
-            }else{
+            }else*/
               //Insercion
 
               Operation.insert(

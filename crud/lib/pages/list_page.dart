@@ -39,7 +39,7 @@ class _MyListState extends State<_MyList> {
 
     return Scaffold(
        floatingActionButton: FloatingActionButton(child: const Icon(Icons.add),onPressed: () {
-         Navigator.pushNamed(context, SavePage.ROUTE, arguments: Note.Empty()).then((value) => setState((() {
+         Navigator.pushNamed(context, SavePage.ROUTE,).then((value) => setState((() {
 
             _loadData();
 

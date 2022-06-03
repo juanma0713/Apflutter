@@ -1,21 +1,19 @@
 class Note {
-  
-    late String title;
-    late String content;
 
-  Note({  required this.title, required this.content}); 
+  final String title;
+  final String content;
 
-  Note.Empty();
-    
-    
-  
+  Note({  required this.title, required this.content}) {
+   
+
+  }
 
   Map<String, dynamic> toMap(){
    return {
       'title' : title, 'content' : content
    };
   }
-}
+} 
 
 
   

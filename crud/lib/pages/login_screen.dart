@@ -13,26 +13,29 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-       floatingActionButton: FloatingActionButton(child: Text("Ir  a Listado"),onPressed: () {
-         Navigator.pushNamed(context, ListPage.ROUTE);
-         
-       },),
+    return Container(padding: EdgeInsets.all(20),
+      child: Scaffold(
+        
+         floatingActionButton: FloatingActionButton(child: Text("Ir"),onPressed: () {
+           Navigator.pushNamed(context, ListPage.ROUTE);
+           
+         },),
 
-      body: Container(
-        width:double.infinity,
-        height: double.infinity,
-        child: Stack(// el stack per,ite agregar varios widget en un solo div pudiendo superponerlos
-          children: [
-            cajapurpura(size),
+        body: Container(
+          width:double.infinity,
+          height: double.infinity,
+          child: Stack(// el stack per,ite agregar varios widget en un solo div pudiendo superponerlos
+            children: [
+              cajapurpura(size),
 
-            iconopersona(),
+              iconopersona(),
 
-            loginform(context),
-          
-          ] ,
-        ),
-      ), 
+              loginform(context),
+            
+            ] ,
+          ),
+        ), 
+      ),
     );
   }
 
@@ -40,7 +43,7 @@ class LoginScreen extends StatelessWidget {
     return  SingleChildScrollView(
       child: Column(
               children: [
-                const SizedBox(height: 250),
+                const SizedBox(height: 300),
                 Container(
                   padding: const EdgeInsets.all(20),
                   margin: const EdgeInsets.symmetric(horizontal: 30), 
